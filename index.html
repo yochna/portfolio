@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>B. Yochna Rao — Full-Stack Developer</title>
+<meta name="description" content="B. Yochna Rao — full-stack developer building correctness-first payment systems and fast, accessible web apps. TypeScript, React, Node.js, PostgreSQL.">
+<meta name="theme-color" content="#FFFFFF">
+<meta property="og:title" content="B. Yochna Rao — Full-Stack Developer">
+<meta property="og:url" content="https://portfolio-pi-wheat-37.vercel.app/">
+<meta name="twitter:card" content="summary">
+<meta property="og:description" content="Three shipped systems: a payments engine with row-locked transactions, an ops dashboard, and an offline-capable PWA.">
+<meta property="og:type" content="website">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%232F5BFF'/%3E%3Ctext x='32' y='42' font-family='Arial' font-size='24' font-weight='700' fill='white' text-anchor='middle'%3EYR%3C/text%3E%3C/svg%3E">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap');
+
+  :root{
+    --bg:        #FFFFFF;
+    --bg-soft:   #F6F7FB;
+    --card:      #FFFFFF;
+    --border:    #E7E9F0;
+    --text:      #14151A;
+    --text-mute: #5B6472;
+    --text-dim:  #9AA2B1;
+    --accent:      #2F5BFF;
+    --accent-dark: #1E3FCC;
+    --accent-soft: #EEF2FF;
+    --green:     #16A34A;
+    --disp: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+    --sans: 'Inter', system-ui, sans-serif;
+  }
+
+  *{ box-sizing: border-box; margin:0; padding:0; }
+  html{ scroll-behavior: smooth; }
+  body{
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  a{ color: inherit; text-decoration: none; }
+  .wrap{ max-width: 1080px; margin: 0 auto; padding: 0 32px; }
+  @media (max-width: 640px){ .wrap{ padding: 0 20px; } }
+
+  /* ---------- nav ---------- */
+  .nav{
+    position: sticky; top: 0; z-index: 30;
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-inner{
+    max-width: 1080px; margin: 0 auto; padding: 18px 32px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  @media (max-width: 640px){ .nav-inner{ padding: 16px 20px; } }
+  .brand{ display:flex; align-items:center; gap:10px; font-family: var(--disp); font-weight:700; font-size:16px; }
+  .brand-mark{
+    width:30px; height:30px; border-radius:8px; background: var(--accent);
+    color:#fff; font-family: var(--disp); font-size:13px; font-weight:700;
+    display:flex; align-items:center; justify-content:center; flex-shrink:0;
+  }
+  .nav-links{ display:flex; gap: 32px; font-size: 14.5px; color: var(--text-mute); }
+  .nav-links a:hover{ color: var(--text); }
+  @media (max-width: 780px){ .nav-links{ display:none; } }
+  .nav-cta{
+    font-size: 13.5px; font-weight: 600; background: var(--text); color:#fff;
+    padding: 9px 18px; border-radius: 7px; transition: background .15s;
+  }
+  .nav-cta:hover{ background: var(--accent); }
+
+  /* ---------- hero ---------- */
+  .hero{ padding: 96px 0 88px; }
+  @media (max-width: 640px){ .hero{ padding: 56px 0 56px; } }
+  .badge{
+    display:inline-flex; align-items:center; gap:8px;
+    font-size: 13px; font-weight: 500; color: var(--text-mute);
+    background: var(--bg-soft); border: 1px solid var(--border);
+    padding: 7px 14px; border-radius: 20px; margin-bottom: 28px;
+  }
+  .badge .dot{ width:7px; height:7px; border-radius:50%; background: var(--green); }
+  h1{
+    font-family: var(--disp); font-weight: 700;
+    font-size: clamp(36px, 5.6vw, 60px);
+    line-height: 1.08; letter-spacing: -0.02em;
+    max-width: 800px; color: var(--text);
+  }
+  h1 .accent{ color: var(--accent); }
+  .lede{
+    margin-top: 22px; font-size: 18px; color: var(--text-mute);
+    max-width: 580px; line-height: 1.65;
+  }
+  .hero-cta{ display:flex; gap:14px; margin-top: 36px; flex-wrap: wrap; }
+  .btn{
+    font-size: 14.5px; font-weight: 600;
+    padding: 13px 24px; border-radius: 8px;
+    display:inline-flex; align-items:center; gap:8px;
+    transition: all .15s ease;
+  }
+  .btn-primary{ background: var(--accent); color: #fff; }
+  .btn-primary:hover{ background: var(--accent-dark); transform: translateY(-1px); }
+  .btn-ghost{ border: 1px solid var(--border); color: var(--text); }
+  .btn-ghost:hover{ border-color: var(--accent); color: var(--accent); }
+
+  .metrics-row{
+    display:grid; grid-template-columns: repeat(4,1fr); gap: 1px;
+    background: var(--border); border: 1px solid var(--border);
+    border-radius: 12px; overflow:hidden; margin-top: 64px;
+  }
+  .metric{ background: var(--card); padding: 24px 20px; }
+  .metric .num{ font-family: var(--disp); font-size: 28px; font-weight: 700; color: var(--text); }
+  .metric .lbl{ font-size: 12.5px; color: var(--text-dim); margin-top: 6px; }
+  @media (max-width: 720px){ .metrics-row{ grid-template-columns: repeat(2,1fr); } }
+
+  /* ---------- sections ---------- */
+  section{ padding: 84px 0; }
+  .sec-alt{ background: var(--bg-soft); }
+  .sec-head{ margin-bottom: 44px; }
+  .sec-eyebrow{ font-size: 13.5px; font-weight: 600; color: var(--accent); margin-bottom: 10px; }
+  .sec-title{ font-family: var(--disp); font-size: 32px; font-weight: 700; letter-spacing: -0.01em; }
+  .sec-sub{ margin-top: 10px; color: var(--text-mute); font-size: 16px; max-width: 560px; }
+
+  /* ---------- projects ---------- */
+  .project{
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 32px;
+    margin-bottom: 22px;
+    transition: box-shadow .2s, transform .2s;
+  }
+  .project:hover{ box-shadow: 0 12px 32px -12px rgba(20,21,26,0.12); transform: translateY(-2px); }
+  .project-top{ display:flex; justify-content: space-between; align-items:flex-start; gap: 20px; flex-wrap: wrap; }
+  .project-heading{ display:flex; align-items:center; gap:16px; }
+  .project-icon{
+    width:46px; height:46px; border-radius:12px; flex-shrink:0;
+    background: var(--accent-soft);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .project-icon svg{ width:22px; height:22px; }
+  .project-name{ font-family: var(--disp); font-size: 21px; font-weight: 700; }
+  .project-tag{ font-size: 14px; color: var(--text-mute); margin-top: 3px; }
+  .project-status{
+    font-size: 12.5px; font-weight: 600; color: var(--green);
+    background: #F0FDF4; border: 1px solid #D6F5DE;
+    padding: 6px 12px; border-radius: 20px; white-space: nowrap;
+    display:flex; align-items:center; gap: 6px;
+  }
+  .project-status .dot{ width:6px; height:6px; border-radius: 50%; background: var(--green); }
+  .project-desc{ margin-top: 18px; color: var(--text-mute); font-size: 15px; max-width: 660px; line-height: 1.65; }
+  .project-stats{ display:flex; gap: 32px; margin-top: 22px; flex-wrap: wrap; }
+  .project-stats .stat .n{ font-family: var(--disp); font-size: 18px; font-weight: 700; color: var(--text); }
+  .project-stats .stat .l{ font-size: 12px; color: var(--text-dim); margin-top: 2px; }
+  .project-stack{ display:flex; gap: 8px; flex-wrap: wrap; margin-top: 22px; }
+  .chip{
+    font-size: 12.5px; font-weight: 500; color: var(--text-mute);
+    background: var(--bg-soft); border: 1px solid var(--border);
+    padding: 5px 12px; border-radius: 6px;
+  }
+  .project-link{
+    font-size: 14px; font-weight: 600; color: var(--accent); margin-top: 22px;
+    display:inline-flex; align-items:center; gap:6px;
+  }
+  .project-link:hover{ gap: 10px; }
+
+  /* ---------- skills ---------- */
+  .skills-grid{ display:grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+  @media (max-width: 780px){ .skills-grid{ grid-template-columns: 1fr; gap: 28px; } }
+  .skill-col .head{ font-family: var(--disp); font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 14px; }
+  .skill-col ul{ list-style:none; }
+  .skill-col li{ font-size: 14.5px; color: var(--text-mute); padding: 9px 0; border-bottom: 1px solid var(--border); }
+  .skill-col li:last-child{ border-bottom: none; }
+
+  /* ---------- why hire ---------- */
+  .reasons{ display:grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  @media (max-width: 780px){ .reasons{ grid-template-columns: 1fr; } }
+  .reason{ background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 28px; }
+  .reason .num{ font-family: var(--disp); font-size: 13px; font-weight: 700; color: var(--accent); }
+  .reason h3{ font-family: var(--disp); font-size: 17px; font-weight: 700; margin-top: 14px; }
+  .reason p{ font-size: 14.5px; color: var(--text-mute); margin-top: 10px; line-height: 1.6; }
+
+  /* ---------- achievements ---------- */
+  .ach-list{ display:flex; flex-direction:column; }
+  .ach-row{
+    display:grid; grid-template-columns: 100px 1fr; gap: 24px;
+    padding: 22px 0; border-bottom: 1px solid var(--border);
+    align-items:baseline;
+  }
+  .ach-row:last-child{ border-bottom:none; }
+  .ach-tag{ font-family: var(--disp); font-size: 13px; font-weight: 700; color: var(--accent); }
+  .ach-text{ color: var(--text-mute); font-size: 15px; }
+  .ach-text strong{ color: var(--text); font-weight: 600; }
+
+  /* ---------- contact ---------- */
+  .contact{ text-align:center; padding: 100px 0 110px; }
+  .contact h2{ font-family: var(--disp); font-size: clamp(30px, 5vw, 46px); font-weight: 700; letter-spacing: -0.01em; max-width: 640px; margin: 0 auto; }
+  .contact p{ color: var(--text-mute); margin-top: 16px; font-size: 16px; }
+  .contact-links{ display:flex; justify-content:center; gap: 14px; margin-top: 36px; flex-wrap: wrap; }
+  footer{ border-top: 1px solid var(--border); padding: 28px 0; font-size: 13px; color: var(--text-dim); text-align:center; }
+
+  /* ---------- reveal on scroll ---------- */
+  .reveal{ opacity: 0; transform: translateY(14px); transition: opacity .6s ease, transform .6s ease; }
+  .reveal.is-visible{ opacity: 1; transform: translateY(0); }
+  @media (prefers-reduced-motion: reduce){
+    .reveal{ opacity:1; transform:none; transition:none; }
+  }
+</style>
+</head>
+<body>
+  <div class="nav">
+    <div class="nav-inner">
+      <div class="brand">
+        <div class="brand-mark">YR</div>
+        B. Yochna Rao
+      </div>
+      <nav class="nav-links">
+        <a href="#projects">Projects</a>
+        <a href="#skills">Skills</a>
+        <a href="#why">Why me</a>
+      </nav>
+      <a class="nav-cta" href="mailto:YochnaRao12@gmail.com">Get in touch</a>
+    </div>
+  </div>
+
+  <div class="wrap">
+
+    <section class="hero">
+      <div class="badge"><span class="dot"></span> Open to full-stack &amp; backend roles — 2027 graduate</div>
+      <h1>Full-stack systems that are fast, <span class="accent">correct</span>, and built to last.</h1>
+      <p class="lede">I'm a final-year CS student (2027) building production systems where correctness comes first — a payments engine with row-locked transactions, an operations dashboard, and an offline-capable PWA.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="mailto:YochnaRao12@gmail.com">Get in touch →</a>
+        <a class="btn btn-ghost" href="Yochna_Rao_Resume.pdf" download>Download resume</a>
+        <a class="btn btn-ghost" href="https://github.com/yochna" target="_blank" rel="noopener">View GitHub</a>
+      </div>
+
+      <div class="metrics-row">
+        <div class="metric"><div class="num">3</div><div class="lbl">Systems shipped</div></div>
+        <div class="metric"><div class="num">46</div><div class="lbl">Automated tests</div></div>
+        <div class="metric"><div class="num">300+</div><div class="lbl">LeetCode solved</div></div>
+        <div class="metric"><div class="num">8.9</div><div class="lbl">CGPA / 10</div></div>
+      </div>
+    </section>
+
+    <section id="projects" class="reveal">
+      <div class="sec-head">
+        <div class="sec-eyebrow">Selected work</div>
+        <div class="sec-title">Three systems, built to hold up</div>
+        <div class="sec-sub">A payments engine, an operations dashboard and an offline PWA — each built with correctness and security designed in, not bolted on.</div>
+      </div>
+
+      <div class="project">
+        <div class="project-top">
+          <div class="project-heading">
+            <div class="project-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#2F5BFF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="M2.5 10h19M6 15h4"/></svg>
+            </div>
+            <div>
+              <div class="project-name">PayFlow</div>
+              <div class="project-tag">Payment processing &amp; settlement engine</div>
+            </div>
+          </div>
+          <div class="project-status"><span class="dot"></span> Live</div>
+        </div>
+        <p class="project-desc">A TypeScript, Express and PostgreSQL payments API covering idempotent creation, capture, settlement, partial and full refunds, HMAC-signed webhooks and an audit trail. Idempotency keys backed by a unique index plus SELECT … FOR UPDATE row locks stop double charges and over-refunds under concurrent requests; the 2% fee and 18% GST math lives in a pure, unit-tested service.</p>
+        <div class="project-stats">
+          <div class="stat"><div class="n">46</div><div class="l">Automated tests</div></div>
+          <div class="stat"><div class="n">0</div><div class="l">Double charges</div></div>
+          <div class="stat"><div class="n">HMAC</div><div class="l">Signed webhooks</div></div>
+        </div>
+        <div class="project-stack">
+          <span class="chip">TypeScript</span><span class="chip">Node.js</span><span class="chip">Express</span><span class="chip">PostgreSQL</span><span class="chip">Docker</span><span class="chip">Vitest</span>
+        </div>
+        <a class="project-link" href="https://payflow-api-n3o5.onrender.com" target="_blank" rel="noopener">Open live sandbox →</a>
+        <a class="project-link" href="https://github.com/yochna/payflow-api" target="_blank" rel="noopener" style="margin-left: 26px;">View code →</a>
+      </div>
+
+      <div class="project">
+        <div class="project-top">
+          <div class="project-heading">
+            <div class="project-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#2F5BFF" stroke-width="1.8" stroke-linecap="round"><path d="M12 3v18M6 21h12M4 8a8 8 0 0 1 16 0M7 8a5 5 0 0 1 10 0"/><circle cx="12" cy="3" r="1.4" fill="#2F5BFF" stroke="none"/></svg>
+            </div>
+            <div>
+              <div class="project-name">TeleOps</div>
+              <div class="project-tag">Telecom network operations dashboard</div>
+            </div>
+          </div>
+          <div class="project-status"><span class="dot" style="background: var(--text-dim);"></span> Source</div>
+        </div>
+        <p class="project-desc">Internal ops tool for managing SIM lifecycle (activate / suspend / port) across network zones, with complaint ticketing that auto-scores priority by type, plus a tower outage tracker. Admin and Agent roles are session-authenticated, and every query runs through PDO prepared statements — no raw SQL, no XSS surface.</p>
+        <div class="project-stats">
+          <div class="stat"><div class="n">SQLi + XSS</div><div class="l">Protected</div></div>
+          <div class="stat"><div class="n">2</div><div class="l">Role tiers</div></div>
+          <div class="stat"><div class="n">Live</div><div class="l">KPI dashboard</div></div>
+        </div>
+        <div class="project-stack">
+          <span class="chip">PHP</span><span class="chip">MySQL (PDO)</span><span class="chip">Sessions</span><span class="chip">RBAC</span>
+        </div>
+        <a class="project-link" href="https://github.com/yochna/telecom-ops" target="_blank" rel="noopener">View code →</a>
+      </div>
+
+      <div class="project">
+        <div class="project-top">
+          <div class="project-heading">
+            <div class="project-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#2F5BFF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10h16v3a7 7 0 0 1-7 7h-2a7 7 0 0 1-7-7v-3z"/><path d="M8 10V7a4 4 0 0 1 8 0v3M2 10h20"/></svg>
+            </div>
+            <div>
+              <div class="project-name">Saffron &amp; Stove</div>
+              <div class="project-tag">Recipe finder, offline-capable PWA</div>
+            </div>
+          </div>
+          <div class="project-status"><span class="dot" style="background: var(--text-dim);"></span> Source</div>
+        </div>
+        <p class="project-desc">An Express proxy keeps the Spoonacular API key off the client entirely, with three-tier rate limiting across global, auth, and search traffic. A custom debounce hook paired with TanStack Query cut redundant API calls by roughly 70% — the app stays fast and stays under quota.</p>
+        <div class="project-stats">
+          <div class="stat"><div class="n">~70%</div><div class="l">Fewer API calls</div></div>
+          <div class="stat"><div class="n">89 / 95</div><div class="l">Perf / A11y</div></div>
+          <div class="stat"><div class="n">Offline</div><div class="l">PWA support</div></div>
+        </div>
+        <div class="project-stack">
+          <span class="chip">React 18</span><span class="chip">Node.js</span><span class="chip">Express</span><span class="chip">MongoDB</span><span class="chip">TanStack Query</span>
+        </div>
+        <a class="project-link" href="https://github.com/yochna/recipe-finder" target="_blank" rel="noopener">View code →</a>
+      </div>
+    </section>
+
+    <section id="skills" class="reveal sec-alt" style="border-radius: 24px; padding: 60px 48px;">
+      <div class="sec-head">
+        <div class="sec-eyebrow">Toolkit</div>
+        <div class="sec-title">What's actually running in production</div>
+      </div>
+      <div class="skills-grid">
+        <div class="skill-col">
+          <div class="head">Frontend</div>
+          <ul>
+            <li>React 18 + Next.js 14</li>
+            <li>TypeScript, JavaScript (ES6+)</li>
+            <li>TanStack Query + Tailwind CSS</li>
+            <li>PWA / Service Workers</li>
+          </ul>
+        </div>
+        <div class="skill-col">
+          <div class="head">Backend</div>
+          <ul>
+            <li>Node.js + Express.js</li>
+            <li>PostgreSQL, MongoDB, MySQL</li>
+            <li>PHP (PDO, sessions, RBAC)</li>
+            <li>REST APIs, MVC architecture</li>
+          </ul>
+        </div>
+        <div class="skill-col">
+          <div class="head">Correctness &amp; DevOps</div>
+          <ul>
+            <li>ACID transactions, row locking, idempotency</li>
+            <li>Vitest + Supertest, HMAC webhooks</li>
+            <li>JWT, bcrypt, Helmet, rate limiting</li>
+            <li>Docker, GitHub Actions, Swagger/OpenAPI</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="why" class="reveal">
+      <div class="sec-head">
+        <div class="sec-eyebrow">Why it holds up</div>
+        <div class="sec-title">The pattern across all three systems</div>
+      </div>
+      <div class="reasons">
+        <div class="reason">
+          <div class="num">01</div>
+          <h3>Security is default, not an afterthought</h3>
+          <p>Every project ships with the boring, necessary parts already handled — prepared or parameterized queries, hashed passwords, sanitized inputs and JWT refresh flows.</p>
+        </div>
+        <div class="reason">
+          <div class="num">02</div>
+          <h3>I document what I build</h3>
+          <p>PayFlow's endpoints are specced in Swagger/OpenAPI, and every payment transition writes an audit entry readable through GET /api/payments/:id/audit.</p>
+        </div>
+        <div class="reason">
+          <div class="num">03</div>
+          <h3>I ship, then I measure</h3>
+          <p>Lighthouse scores, API-call reductions and 46 regression tests — I check my own work against real numbers instead of calling something "done" on gut feel.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="reveal">
+      <div class="sec-head">
+        <div class="sec-eyebrow">Background</div>
+        <div class="sec-title">Log</div>
+      </div>
+      <div class="ach-list">
+        <div class="ach-row">
+          <div class="ach-tag">RANK</div>
+          <div class="ach-text"><strong>1st in Semester 1</strong> with a 9.1 CGPA — top performer in batch, maintaining 8.9 overall.</div>
+        </div>
+        <div class="ach-row">
+          <div class="ach-tag">DSA</div>
+          <div class="ach-text"><strong>LeetCode 300+</strong> problems solved across arrays, trees, graphs, dynamic programming and binary search; 100 Days Badge, 2025.</div>
+        </div>
+        <div class="ach-row">
+          <div class="ach-tag">INTERN</div>
+          <div class="ach-text">Shipped a <strong>7-page Next.js and TypeScript site at Swaniki</strong> — typed content, sitemap and metadata, responsive Tailwind layouts.</div>
+        </div>
+        <div class="ach-row">
+          <div class="ach-tag">INTERN</div>
+          <div class="ach-text">Shipped 5+ responsive client pages at <strong>Code Booster</strong>, standardizing a shared component library across all deliverables.</div>
+        </div>
+        <div class="ach-row">
+          <div class="ach-tag">DOCS</div>
+          <div class="ach-text"><strong>Swagger/OpenAPI documentation</strong> for the PayFlow API, plus HMAC-verified webhook retries and a payment audit-trail endpoint.</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="contact" style="border-top: 1px solid var(--border);">
+      <div class="sec-eyebrow" style="text-align:center;">Let's build something</div>
+      <h2>Open to full-stack and backend roles — 2027 graduate.</h2>
+      <p>Based in Durg, India — open to relocating to Hyderabad, or remote and hybrid work.</p>
+      <div class="contact-links">
+        <a class="btn btn-primary" href="mailto:YochnaRao12@gmail.com">YochnaRao12@gmail.com</a>
+        <a class="btn btn-ghost" href="Yochna_Rao_Resume.pdf" download>Download resume</a>
+        <a class="btn btn-ghost" href="tel:+919669636700">+91 96696 36700</a>
+        <a class="btn btn-ghost" href="https://linkedin.com/in/b-yochna-rao-6ab964285" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="btn btn-ghost" href="https://github.com/yochna" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </section>
+
+  </div>
+
+  <footer>© 2026 B. Yochna Rao</footer>
+
+  <script>
+    (function(){
+      const items = document.querySelectorAll('.reveal');
+      if(!items.length) return;
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if(reduced){ items.forEach(i => i.classList.add('is-visible')); return; }
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if(entry.isIntersecting){
+            entry.target.classList.add('is-visible');
+            io.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+      items.forEach(i => io.observe(i));
+    })();
+  </script>
+
+</body>
+</html>
